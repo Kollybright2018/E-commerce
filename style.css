@@ -1,0 +1,87 @@
+*{
+    padding: 0%;
+    margin: 0%;
+
+}
+.menu-bar{
+    width: 100%;
+    display: flex;
+    background: rgb(8, 8, 8);
+    text-align: center;
+    border-bottom: 1px solid rgb(192, 42, 42);
+
+}
+.menu-bar .logo{
+    width: 35%;
+    padding-top: 10px;
+}
+.menu-bar .logo a{
+   color: white;
+   text-emphasis: spacing;
+   padding-top: 10px;
+   font-family: Arial, Helvetica, sans-serif;
+   letter-spacing: 2px;
+   font-weight: 1200;
+   font-size: 30px;
+   text-decoration: none;
+}
+.menu-bar .nav{
+    width: 65%;
+}
+.menu-bar .nav ul{
+   list-style: none;
+}
+.menu-bar .nav ul li{
+    padding-top: 10px;
+   display: inline-flex;
+   padding-left: 15px;
+   padding-right: 15px;
+ }
+.menu-bar .nav ul li a{
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+    text-decoration: none;
+    font-weight: 1200;
+ }
+ a:hover{
+     /* padding: 10px; */
+     /*background-color: rgb(209, 10, 10);*/
+ }
+
+ /* // style side bar */
+ .sidebar-menu ul{
+list-style: none;
+ }
+
+ .sidebar-menu ul li{
+
+   padding: 5px;
+   display: block;
+  
+     }
+     .sidebar-menu ul li a{
+        text-decoration: none;
+        color: white;
+        text-decoration: none;
+        font-weight: 1200;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 30px;
+          }
+          .sidebar-menu ul li a:hover{
+               border-bottom: 3px  solid  white;
+               background:none;
+          }
+
+          /* center of page */
+   .cof{
+     border-left: 2px solid #444 ;
+     
+   }  
+   .store{
+     padding-top: 30px;
+   }     
+   .pro_text{
+    font-weight: bold;
+font-style: oblique;
+   }
