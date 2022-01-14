@@ -1,42 +1,28 @@
-  <?php $admin=''; 
+<?php $admin=''; 
+
 include ('inc/db.php');
-$error =[];
-$get_pro= mysqli_query($dbc, "SELECT * FROM product order by rand() limit 0, 6");
+$get_pro= mysqli_query($dbc, "SELECT * FROM product order by rand() ");
+echo "<pre>";
+$ip = $_SERVER['REMOTE_ADDR'];
 
+print_r($_SERVER);
+echo "</pre>";
+if (isset($_GET['go'])) {
+    //  get serach text
+      if (empty($_GET['search'])) {
+        $error['search-e']= "Enter Your text";
+      }else {
+        $search = $_GET['search'];
+        $get_pro= mysqli_query($dbc, "SELECT * FROM product WHERE keyword OR p_name OR description like '%$search%' ");
+    $count = mysqli_num_rows($get_pro);
+    if ($count==0) {
+      $signal = "No result found";
+    }
+    
+      }
+      # code...
+    }
 
-
-
-// To get our product base on category id
-if (isset($_GET['c_id'])) {
-$c_id= $_GET['c_id'];
-$get_pro= mysqli_query($dbc, "SELECT * FROM product WHERE c_id = '$c_id' order by rand() limit 0, 6");
-$count = mysqli_num_rows($get_pro);
-if ($count==0) {
-  $signal = "The brand selested is not Available at the moment pls check back, thanks Were are sorry for the incovinence";
-}
-}elseif (isset($_GET['b_id'])) {
-  // To get our product base on Brand id
-   $b_id= $_GET['b_id'];
-  $get_pro= mysqli_query($dbc, "SELECT * FROM product WHERE b_id = '$b_id' order by rand() limit 0, 6");
- $count = mysqli_num_rows($get_pro);
- if ($count==0) {
-   $signal = "The brand selested is not Available at the moment pls check back, thanks Were are sorry for the incovinence";
- }
-}elseif (isset($_GET['go'])) {
-//  get serach text
-  if (empty($_GET['search'])) {
-    $error['search-e']= "Enter Your text";
-  }else {
-    $search = $_GET['search'];
-    $get_pro= mysqli_query($dbc, "SELECT * FROM product WHERE keyword OR p_name OR description like '%$search%' ");
-$count = mysqli_num_rows($get_pro);
-if ($count==0) {
-  $signal = "No result found";
-}
-
-  }
-
-}
 
 
 ?>
@@ -60,20 +46,18 @@ if ($count==0) {
             <!-- center of the page  -->
             <div class="col-md-10 "  style="border-left:3px solid #444" >
             <div class="row bg-dark">
-            <?php cart(); ?> 
-              <!-- call count array function -->
-              <?php  count_cart();?>
-              <p class="p-3 display-5">Welcome: <span class=" mr-5 badge badge-primary">Guest</span> Shopping Cart - Total Items:
-               <span class=" mr-5 badge badge-primary" > <?php //echo $count; ?>22</span> 
+            
+              <p class="p-3 display-5">Welcome: <span class=" mr-5 badge badge-primary">Guest</span> Shopping Cart - Total Items: <span class=" mr-5 badge badge-primary" > 3</span> 
                Total Price: <span class=" mr-5 badge badge-primary"> #500</span>
                <a class="btn btn-info ml-5" href="#">Go to Cart</a> <a class="btn btn-primary ml-5" href="#"> Login</a>
-              </p>
-              <form action="" method="GET" class="form-inline">
-                <input type="text" name="search" placeholder="Search" class="form-control">
+               <form action="" method="GET" class="form-inline">
+                <input type="text" placeholder="Search" class="form-control">
                 <button name="go" class="btn btn-success ml-2" type="submit"> Go...</button>
-              </form>
+              </form>  
+            </p>
+              
             </div>
-          
+
              <h1 class="pt-4 text-success text-center">God's Blessing Store</h1>
              
              <!-- starts of container in the page -->
@@ -112,8 +96,7 @@ if ($count==0) {
                 </div>
                  <!-- End of the col -->
                     <?php endforeach ?>
-                    <?php cart(); ?>    
-                  </div>
+                      </div>
             <!-- Ends of rows in the page -->
 
             </div>

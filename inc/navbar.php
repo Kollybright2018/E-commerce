@@ -4,8 +4,8 @@
   </div> 
   <div class="nav">
       <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">All Products</a></li>
+          <li><a href="index.php">Home</a></li>
+          <li><a href="all_products.php">All Products</a></li>
           <li><a href="#">My Account</a></li>
           <li><a href="#">Sign up</a></li>
           <li><a href="#">Shooping Cart</a></li>

@@ -9,7 +9,7 @@ if (isset($_POST['submit'])) {
    $b_id = mysqli_real_escape_string($dbc, $_POST['brand']);
    $keyword = mysqli_real_escape_string($dbc, $_POST['keyword']);
    $quantity = mysqli_real_escape_string($dbc, $_POST['quantity']);
-   $description = mysqli_real_escape_string($dbc, $_POST['category']);
+   $description = mysqli_real_escape_string($dbc, $_POST['description']);
    $brand = mysqli_real_escape_string($dbc, $_POST['brand']);
    // get image
    $img = $_FILES["img"]["name"];
