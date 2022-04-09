@@ -2,11 +2,11 @@
 
 include ('inc/db.php');
 $get_pro= mysqli_query($dbc, "SELECT * FROM product order by rand() ");
-echo "<pre>";
-$ip = $_SERVER['REMOTE_ADDR'];
+// echo "<pre>";
+// $ip = $_SERVER['REMOTE_ADDR'];
 
-print_r($_SERVER);
-echo "</pre>";
+// print_r($_SERVER);
+// echo "</pre>";
 if (isset($_GET['go'])) {
     //  get serach text
       if (empty($_GET['search'])) {

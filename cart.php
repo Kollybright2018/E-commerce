@@ -1,8 +1,12 @@
-  <?php $admin=''; 
+<?php $admin=''; 
 include ('inc/db.php');
 $error =[];
 $get_pro= mysqli_query($dbc, "SELECT * FROM product order by rand() limit 0, 6");
-
+ 
+$ip=  getIp();
+$select = mysqli_query($dbc, "SELECT * FROM cart 
+                        INNER JOIN product on cart.p_id = product.p_id
+                         WHERE cart.ip_addr = '$ip'  ");
 
 
 
@@ -77,43 +81,44 @@ cart();
              <h1 class="pt-4 text-success text-center">God's Blessing Store</h1>
              
              <!-- starts of container in the page -->
-              <div class="container jumbotron pt-0 mt-0 ">
-                <!-- starts of rows in the page -->
-                    <div class="row ">
-                      <?php
-                        if (isset($signal)) { ?>
-                        <div class="alert alert-danger" >
-                          <strong class="text-center"> <?php echo  $signal ;?> </strong>
-                        </div>
-                        <?php } ?>
-                <!-- start of each col -->
-                <?php foreach ($get_pro as $pro ): ?>
-                <div class="col-md-4 mt-1">
-                   <div class="items card p-2">
-                   <h4 class="item-name text-center"><?php echo $pro['p_name'] ?></h4>
-                     <img src="img/<?php echo $pro['image'] ?>" width="90%" height="168" alt="">
-                     <p class="price text-center"><b>Price: #<?php echo $pro['price'] ?></b></p>
-                    
-                     <div class="row">
-                       <div class="col-md-6">
-                       <div class="p-2">
-                        <a href="pro_details.php?details=<?php echo $pro['p_id']?>"class="btn btn-primary btn-rounded"> Details</a>
-                       </div>               
-                       </div>
-                       <div class="col-md-6 " >
-                       <div class="p-2">
-                          <a href="index.php?cart=<?php echo $pro['p_id']?>" class="btn btn-success btn-rounded"> Add to cart</a>
-                       </div>
-                          
-                       </div>
-                     </div>
-                    
-                   </div>
-                </div>
-                 <!-- End of the col -->
-                    <?php endforeach ?>
-                      
-                  </div>
+              <div class="container  pt-0 mt-0 ">
+                <form action="" class="form" method="post">
+                    <table class="table table-bordered table-stripped">
+                        <thead>
+                        <tr>
+                            <th>Remove</th>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Total Price</th>
+                        </tr> 
+                        </thead> 
+                        <tbody>
+                          <?php
+                          foreach ($select as $pro) { ?>
+                            <tr>
+                                <td><input type="checkbox" name="remove[]" value="" id=""></td>
+                                <td>  <b> <?php echo $pro['p_name'] ?></b>  <br><img src="img/<?php echo $pro['image'] ?> " width="60" height="30" name="img" alt="" > <br> <b> <?php echo '#'. $pro['price'] ?></b></td>
+                                <td><input type="number" name="quantity"  value="<?php echo $pro['qty'] ?>"> <b></b> </td>
+                                <td>   <b> <?php echo $pt= $pro['qty'] * $pro['price'] ?></b></td>
+                            </tr>
+                            <?php } ?>
+                        </tbody>
+
+                    </table>
+                    <div class="row">
+                      <div class="col-4">
+                        <button name="btn" class="btn btn-primary">Update Cart</button>
+                      </div>
+                      <div class="col-4">
+                        <button name="btn" class="btn btn-success">Continuex</button>
+                      </div>
+                      <div class="col-4">
+                        <a href="" class="btn btn-danger">Check Out</a>
+                      </div>
+
+                    </div>
+                </form>         
+              </div>
             <!-- Ends of rows in the page -->
 
             </div>

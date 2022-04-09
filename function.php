@@ -80,40 +80,56 @@ $sel_brand=mysqli_query($dbc, "SELECT * FROM brands");
 }
 // Add to cart
 function cart(){
-  global $dbc;
-  $ip =getIp();
-  if ($_GET['cart']) {
+  if (isset($_GET['cart'])) {
+    global $dbc;
+    $ip =getIp();
    $p_id = $_GET['cart'];
   $sel_cart = mysqli_query($dbc, "SELECT * FROM cart WHERE ip_addr ='$ip' AND p_id ='$p_id' ");
   if (mysqli_num_rows($sel_cart)>0) {
     echo " ";
   }else {
-    $qty = 0;
+    $qty = 1;
     $insert = mysqli_query($dbc, "INSERT INTO cart (p_id, ip_addr, qty)
                                 values('$p_id', '$ip', '$qty') ");
+     header('location:index.php');                           
                            
   }
   }
  
 }
 
-// Count cart items 
+// total cart items 
 function count_cart(){
   global $dbc ;
-  if (isset ( $_GET['cart'])) {
+  if (isset($_GET['cart'])) {
+  
     $p_id =$_GET['cart'];
     $ip = getIp(); //function to get ip address
     $sel_cart= mysqli_query($dbc, "SELECT * FROM cart WHERE ip_addr ='$ip' ");
     $count = mysqli_num_rows($sel_cart);
  
   }else {
-    $p_id =$_GET['cart'];
+  
     $ip = getIp(); //function to get ip address
     $sel_cart= mysqli_query($dbc, "SELECT * FROM cart WHERE ip_addr ='$ip' ");
     $count = mysqli_num_rows($sel_cart);
   
   }
+  return $count;
   
+  
+}
+// Get total price
+function cart_total_price(){
+  global $dbc;
+  $ip = getIp();
+  $total =0;
+  $sel_cart = mysqli_query($dbc, "SELECT SUM(product.price) AS total_price FROM cart 
+                            JOIN product WHERE  cart.ip_addr ='$ip' 
+                            AND cart.p_id=product.p_id  ");
+  $fetch = mysqli_fetch_array($sel_cart);
+    
+  return $fetch['total_price'] ;
 }
     
  ?>
